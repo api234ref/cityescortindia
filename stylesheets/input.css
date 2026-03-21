@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+/* Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Josefin+Sans:wght@200;300;400;600&display=swap");
+
+@theme {
+  /* Google Fonts */
+  --font-heading: "Cormorant Garamond", serif;
+  --font-body: "Josefin Sans", sans-serif;
+}
+
+/* Run Command:
+npx @tailwindcss/cli -i ./stylesheets/input.css -o ./stylesheets/output.css --watch */

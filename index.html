@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CITY-INDIA — Elite Escort Service</title>
+  <link href="./stylesheets/output.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Josefin+Sans:wght@200;300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #c9a84c;
+      --gold-light: #e8c97a;
+      --white-hunt: #ffffff;
+      --dark: #0a0804;
+      --dark2: #110e08;
+      --card-bg: #15110a;
+      --text-muted: #7a6a4f;
+    }
+
+    body {
+      font-family: 'Josefin Sans', sans-serif;
+      background-color: var(--dark);
+      color: #e8dcc8;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, .serif { font-family: 'Cormorant Garamond', serif; }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 0.4;
+    }
+
+    .gold-text {
+      background: linear-gradient(135deg, #c9a84c 0%, #f0d980 50%, #c9a84c 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .navbar {
+      background: linear-gradient(180deg, rgba(10,8,4,0.98) 0%, rgba(10,8,4,0.85) 100%);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+    }
+
+    .nav-link {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #a08c6a;
+      transition: color 0.3s;
+    }
+    .nav-link:hover { color: var(--gold); }
+
+    .hero-divider {
+      width: 80px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 16px auto;
+    }
+
+    .profile-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(201,168,76,0.12);
+      border-radius: 2px;
+      overflow: hidden;
+      transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .profile-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 50%, rgba(10,8,4,0.95) 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .profile-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(201,168,76,0.4);
+      box-shadow: 0 20px 60px rgba(201,168,76,0.08), 0 0 0 1px rgba(201,168,76,0.15);
+    }
+
+    .card-img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      display: block;
+      filter: sepia(20%) brightness(0.85);
+      transition: filter 0.4s ease, transform 0.5s ease;
+    }
+
+    .profile-card:hover .card-img {
+      filter: sepia(10%) brightness(0.95);
+      transform: scale(1.04);
+    }
+
+    .card-content {
+      position: relative;
+      z-index: 2;
+      padding: 20px;
+    }
+
+    .card-badge {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      z-index: 3;
+      background: rgba(201,168,76,0.15);
+      border: 1px solid rgba(201,168,76,0.4);
+      color: var(--gold-light);
+      font-size: 9px;
+      letter-spacing: 2px;
+      padding: 4px 10px;
+      text-transform: uppercase;
+    }
+
+    .card-view-btn {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      z-index: 3;
+      color: var(--gold);
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 12px;
+      border-top: 1px solid rgba(201,168,76,0.15);
+      transition: all 0.3s ease;
+      opacity: 0;
+      font-family: 'Josefin Sans', sans-serif;
+    }
+    .profile-card:hover .card-view-btn { opacity: 1; background: rgba(201,168,76,0.08); }
+
+    .action-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 16px;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-radius: 1px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      font-family: 'Josefin Sans', sans-serif;
+      font-weight: 400;
+      flex: 1;
+    }
+
+    .btn-whatsapp {
+      background: rgba(37,211,102,0.08);
+      border: 1px solid rgba(37,211,102,0.25);
+      color: #4ade80;
+    }
+    .btn-whatsapp:hover { background: rgba(37,211,102,0.18); border-color: rgba(37,211,102,0.5); color: #86efac; }
+
+    .btn-call {
+      background: rgba(201,168,76,0.08);
+      border: 1px solid rgba(201,168,76,0.25);
+      color: var(--gold);
+    }
+    .btn-call:hover { background: rgba(201,168,76,0.18); border-color: rgba(201,168,76,0.5); color: var(--gold-light); }
+
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-family: 'Josefin Sans', sans-serif;
+    }
+
+    .footer-bg {
+      background: linear-gradient(180deg, var(--dark2) 0%, #07050200 0%, var(--dark2) 100%);
+      border-top: 1px solid rgba(201,168,76,0.15);
+    }
+
+    .footer-link {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      transition: color 0.3s;
+      text-decoration: none;
+    }
+    .footer-link:hover { color: var(--gold); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-up { animation: fadeUp 0.8s ease forwards; }
+    .delay-1 { animation-delay: 0.1s; opacity: 0; }
+    .delay-2 { animation-delay: 0.2s; opacity: 0; }
+    .delay-3 { animation-delay: 0.3s; opacity: 0; }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--dark); }
+    ::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 2px; }
+
+    #mobile-menu { display: none; }
+    #mobile-menu.open { display: block; }
+
+    /* ===== PROFILE OVERLAY ===== */
+    .profile-overlay {
+      position: fixed; inset: 0; z-index: 10000;
+      background: #0d0b07;
+      overflow-y: auto;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    .profile-overlay.active { opacity: 1; pointer-events: all; }
+    body.overlay-open { overflow: hidden; }
+
+    .overlay-header {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(13,11,7,0.97);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      padding: 16px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .overlay-close {
+      width: 40px; height: 40px;
+      border: 1px solid rgba(201,168,76,0.3);
+      background: rgba(201,168,76,0.05);
+      color: var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 0.3s; font-size: 18px;
+    }
+    .overlay-close:hover { background: rgba(201,168,76,0.15); }
+
+    .overlay-body {
+      max-width: 1100px; margin: 0 auto;
+      padding: 32px 24px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+    }
+    @media(max-width:768px){ .overlay-body { grid-template-columns: 1fr; gap: 24px; } }
+
+    .gallery-main { position: relative; overflow: hidden; background: var(--card-bg); border: 1px solid rgba(201,168,76,0.1); }
+    .gallery-main img { width: 100%; height: 460px; object-fit: cover; display: block; }
+    .gallery-arrow {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 44px; height: 44px;
+      background: rgba(10,8,4,0.8); border: 1px solid rgba(201,168,76,0.3);
+      color: var(--gold); display: flex; align-items: center; justify-content: center;
+      cursor: pointer; z-index: 2; transition: all 0.3s; font-size: 22px;
+    }
+    .gallery-arrow:hover { background: rgba(201,168,76,0.2); }
+    .gallery-arrow.prev { left: 12px; }
+    .gallery-arrow.next { right: 12px; }
+    .gallery-thumbs { display: flex; gap: 8px; padding: 10px; background: rgba(10,8,4,0.6); overflow-x: auto; }
+    .gallery-thumb { width: 72px; height: 56px; object-fit: cover; border: 2px solid transparent; cursor: pointer; transition: all 0.2s; flex-shrink: 0; filter: brightness(0.65); }
+    .gallery-thumb.active, .gallery-thumb:hover { border-color: var(--gold); filter: brightness(1); }
+
+    .info-panel { display: flex; flex-direction: column; gap: 18px; }
+    .profile-name-area { border-bottom: 1px solid rgba(201,168,76,0.15); padding-bottom: 16px; }
+
+    .avail-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.3);
+      color: #4ade80; font-size: 9px; letter-spacing: 2px;
+      padding: 4px 12px; text-transform: uppercase; margin-bottom: 8px;
+    }
+    .avail-dot { width: 6px; height: 6px; border-radius: 50%; background: #4ade80; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    .tabs { display: flex; border-bottom: 1px solid rgba(201,168,76,0.15); }
+    .tab-btn {
+      padding: 10px 18px; font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent;
+      transition: all 0.3s; font-family: 'Josefin Sans', sans-serif;
+      background: none; border-top: none; border-left: none; border-right: none;
+    }
+    .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+    .tab-content { display: none; padding-top: 4px; }
+    .tab-content.active { display: block; }
+
+    .info-row { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .info-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); }
+    .info-value { font-size: 12px; letter-spacing: 1px; color: #e8dcc8; }
+    .info-value.gold { color: var(--gold); }
+
+    .rates-table { width: 100%; border-collapse: collapse; }
+    .rates-table th { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); padding: 10px 12px; text-align: left; border-bottom: 1px solid rgba(201,168,76,0.2); background: rgba(201,168,76,0.05); }
+    .rates-table td { font-size: 11px; padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.04); color: #e8dcc8; }
+    .rates-table td:first-child { color: var(--text-muted); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
+    .rates-table tr:hover td { background: rgba(201,168,76,0.03); }
+    .rates-note { font-size: 9px; color: var(--text-muted); margin-top: 8px; line-height: 1.8; }
+
+    .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px; }
+    .service-item { display: flex; align-items: center; gap: 8px; padding: 10px 12px; background: rgba(201,168,76,0.04); border: 1px solid rgba(201,168,76,0.1); font-size: 10px; letter-spacing: 1px; color: #c8b896; }
+    .service-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+
+    .about-text { font-size: 12px; line-height: 2; color: #a08c6a; letter-spacing: 0.5px; margin-top: 4px; }
+
+    .book-btn {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; padding: 16px;
+      background: linear-gradient(135deg, #c9a84c, #e8c97a, #c9a84c);
+      color: #0a0804; font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      font-family: 'Josefin Sans', sans-serif; font-weight: 600;
+      cursor: pointer; border: none; transition: opacity 0.3s; text-decoration: none;
+    }
+    .book-btn:hover { opacity: 0.88; }
+    .overlay-contact { display: flex; gap: 10px; }
+
+    .profile-overlay::-webkit-scrollbar { width: 3px; }
+    .profile-overlay::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar fixed top-0 left-0 right-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center gap-3">
+          <div style="width:28px;height:28px;border:1px solid rgba(201,168,76,0.5);transform:rotate(45deg);display:flex;align-items:center;justify-content:center;">
+            <div style="width:10px;height:10px;background:var(--gold);transform:rotate(0deg);"></div>
+          </div>
+          <div>
+            <span class="serif font-semibold text-lg gold-text tracking-widest">CITY-INDIA</span>
+            <span class="serif font-light text-lg" style="color:#a08c6a;letter-spacing:3px;">ESCORT</span>
+          </div>
+        </div>
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#" class="nav-link">Home</a>
+          <a href="#profiles" class="nav-link">Profiles</a>
+          <a href="#" class="nav-link">Services</a>
+          <a href="#" class="nav-link">Cities</a>
+          <a href="#" class="nav-link">About</a>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="" class="hidden md:flex items-center gap-2 btn-call action-btn" style="flex:none;padding:8px 20px;">
+            <!-- <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg> -->
+            24/7 Available
+          </a>
+          <button id="hamburger" class="md:hidden p-2" style="color:var(--gold);" onclick="document.getElementById('mobile-menu').classList.toggle('open')">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+        </div>
+      </div>
+      <div id="mobile-menu" style="border-top:1px solid rgba(201,168,76,0.1);padding:16px 0;">
+        <div class="flex flex-col gap-4">
+          <a href="#" class="nav-link">Home</a>
+          <a href="#profiles" class="nav-link">Profiles</a>
+          <a href="#" class="nav-link">Services</a>
+          <a href="#" class="nav-link">Cities</a>
+          <a href="#" class="nav-link">About</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section class="pt-32 pb-20 text-center px-4">
+    <p class="section-label fade-up delay-1">Premium Companionship Service</p>
+    <div class="hero-divider fade-up delay-1"></div>
+    <h1 class="serif fade-up delay-2" style="font-size:clamp(2.5rem,6vw,5rem);font-weight:300;line-height:1.15;letter-spacing:2px;">
+      Your Dream City,<br/>
+      <span class="gold-text" style="font-style:italic;">Your Dream Girls.</span>
+    </h1>
+    <p class="fade-up delay-3 mt-6 text-sm tracking-widest" style="color:var(--text-muted);max-width:480px;margin:24px auto 0;line-height:2;font-weight:300;">
+      Premium, discreet companionship services available across all major cities. Handpicked profiles for the discerning gentleman.
+    </p>
+    <div class="hero-divider fade-up delay-3" style="margin-top:32px;"></div>
+  </section>
+
+  <!-- ===== PROFILES SECTION ===== -->
+  <section id="profiles" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+    <div class="text-center mb-14">
+      <p class="section-label">Our Elite Companions</p>
+      <h2 class="serif mt-3" style="font-size:2.2rem;font-weight:300;letter-spacing:1px;">Featured Profiles</h2>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+
+      <!-- Card 1 -->
+      <div class="profile-card fade-up delay-1" onclick="openProfile(0)">
+        <div class="card-badge">Available</div>
+        <div style="overflow:hidden;"><img src="./Assets/Images/01.jpeg" class="card-img" alt="Sophia"/></div>
+        <div class="card-content">
+          <h3 class="serif" style="font-size:1.4rem;font-weight:400;letter-spacing:1px;">Kajal</h3>
+          <div class="flex items-center gap-2 mt-1 mb-4">
+            <span style="font-size:9px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase;">Height</span>
+            <span style="font-size:9px;color:var(--gold);letter-spacing:1px;">5'6" / 168 cm</span>
+          </div>
+          <div class="flex gap-2">
+            <a href="https://wa.me/7488836099" target="_blank" class="action-btn btn-whatsapp" onclick="event.stopPropagation()"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp</a>
+            <a href="tel:+917488836099" class="action-btn btn-call" onclick="event.stopPropagation()"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>Call Now</a>
+          </div>
+        </div>
+        <div class="card-view-btn">View Full Profile &rarr;</div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="profile-card fade-up delay-2" onclick="openProfile(1)">
+        <div class="card-badge">Available</div>
+        <div style="overflow:hidden;"><img src="./Assets/Images/08.jpeg" class="card-img" alt="Isabella"/></div>
+        <div class="card-content">
+          <h3 class="serif" style="font-size:1.4rem;font-weight:400;letter-spacing:1px;">Sakshi</h3>
+          <div class="flex items-center gap-2 mt-1 mb-4">
+            <span style="font-size:9px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase;">Height</span>
+            <span style="font-size:9px;color:var(--gold);letter-spacing:1px;">5'7" / 170 cm</span>
+          </div>
+          <div class="flex gap-2">
+            <a href="https://wa.me/7488836099" target="_blank" class="action-btn btn-whatsapp" onclick="event.stopPropagation()"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp</a>
+            <a href="tel:+917488836099" class="action-btn btn-call" onclick="event.stopPropagation()"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>Call Now</a>
+          </div>
+        </div>
+        <div class="card-view-btn">View Full Profile &rarr;</div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="profile-card fade-up delay-3" onclick="openProfile(2)">
+        <div class="card-badge">Busy</div>
+        <div style="overflow:hidden;"><img src="./Assets/Images/15.jpeg" class="card-img" alt="Natasha"/></div>
+        <div class="card-content">
+          <h3 class="serif" style="font-size:1.4rem;font-weight:400;letter-spacing:1px;">Naira</h3>
+          <div class="flex items-center gap-2 mt-1 mb-4">
+            <span style="font-size:9px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase;">Height</span>
+            <span style="font-size:9px;color:var(--gold);letter-spacing:1px;">5'5" / 165 cm</span>
+          </div>
+          <div class="flex gap-2">
+            <a href="https://wa.me/7488836099" target="_blank" class="action-btn btn-whatsapp" onclick="event.stopPropagation()"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp</a>
+            <a href="tel:+917488836099" class="action-btn btn-call" onclick="event.stopPropagation()"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>Call Now</a>
+          </div>
+        </div>
+        <div class="card-view-btn">View Full Profile &rarr;</div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="profile-card fade-up delay-1" onclick="openProfile(3)">
+        <div class="card-badge">Available</div>
+        <div style="overflow:hidden;"><img src="./Assets/Images/11.jpeg" class="card-img" alt="Aurora"/></div>
+        <div class="card-content">
+          <h3 class="serif" style="font-size:1.4rem;font-weight:400;letter-spacing:1px;">Maya</h3>
+          <div class="flex items-center gap-2 mt-1 mb-4">
+            <span style="font-size:9px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase;">Height</span>
+            <span style="font-size:9px;color:var(--gold);letter-spacing:1px;">5'8" / 173 cm</span>
+          </div>
+          <div class="flex gap-2">
+            <a href="https://wa.me/7488836099" target="_blank" class="action-btn btn-whatsapp" onclick="event.stopPropagation()"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp</a>
+            <a href="tel:+917488836099" class="action-btn btn-call" onclick="event.stopPropagation()"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>Call Now</a>
+          </div>
+        </div>
+        <div class="card-view-btn">View Full Profile &rarr;</div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="profile-card fade-up delay-2" onclick="openProfile(4)">
+        <div class="card-badge">Available</div>
+        <div style="overflow:hidden;"><img src="./Assets/Images/18.jpeg" class="card-img" alt="Valentina"/></div>
+        <div class="card-content">
+          <h3 class="serif" style="font-size:1.4rem;font-weight:400;letter-spacing:1px;">Muskan</h3>
+          <div class="flex items-center gap-2 mt-1 mb-4">
+            <span style="font-size:9px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase;">Height</span>
+            <span style="font-size:9px;color:var(--gold);letter-spacing:1px;">5'4" / 163 cm</span>
+          </div>
+          <div class="flex gap-2">
+            <a href="https://wa.me/7488836099" target="_blank" class="action-btn btn-whatsapp" onclick="event.stopPropagation()"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp</a>
+            <a href="tel:+917488836099" class="action-btn btn-call" onclick="event.stopPropagation()"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>Call Now</a>
+          </div>
+        </div>
+        <div class="card-view-btn">View Full Profile &rarr;</div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="profile-card fade-up delay-3" onclick="openProfile(5)">
+        <div class="card-badge">Available</div>
+        <div style="overflow:hidden;"><img src="./Assets/Images/21.jpeg" class="card-img" alt="Elena"/></div>
+        <div class="card-content">
+          <h3 class="serif" style="font-size:1.4rem;font-weight:400;letter-spacing:1px;">Suhana</h3>
+          <div class="flex items-center gap-2 mt-1 mb-4">
+            <span style="font-size:9px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase;">Height</span>
+            <span style="font-size:9px;color:var(--gold);letter-spacing:1px;">5'9" / 175 cm</span>
+          </div>
+          <div class="flex gap-2">
+            <a href="https://wa.me/7488836099" target="_blank" class="action-btn btn-whatsapp" onclick="event.stopPropagation()"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp</a>
+            <a href="tel:+917488836099" class="action-btn btn-call" onclick="event.stopPropagation()"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>Call Now</a>
+          </div>
+        </div>
+        <div class="card-view-btn">View Full Profile &rarr;</div>
+      </div>
+
+      <!-- Card 7 -->
+      <div class="profile-card fade-up delay-1" onclick="openProfile(6)">
+        <div class="card-badge">Available</div>
+        <div style="overflow:hidden;"><img src="./Assets/Images/25.jpeg" class="card-img" alt="Priya"/></div>
+        <div class="card-content">
+          <h3 class="serif" style="font-size:1.4rem;font-weight:400;letter-spacing:1px;">Priya</h3>
+          <div class="flex items-center gap-2 mt-1 mb-4">
+            <span style="font-size:9px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase;">Height</span>
+            <span style="font-size:9px;color:var(--gold);letter-spacing:1px;">5'3" / 160 cm</span>
+          </div>
+          <div class="flex gap-2">
+            <a href="https://wa.me/7488836099" target="_blank" class="action-btn btn-whatsapp" onclick="event.stopPropagation()"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp</a>
+            <a href="tel:+917488836099" class="action-btn btn-call" onclick="event.stopPropagation()"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>Call Now</a>
+          </div>
+        </div>
+        <div class="card-view-btn">View Full Profile &rarr;</div>
+      </div>
+
+      <!-- Card 8 -->
+      <div class="profile-card fade-up delay-2" onclick="openProfile(7)">
+        <div class="card-badge">Busy</div>
+        <div style="overflow:hidden;"><img src="./Assets/Images/24.jpeg" class="card-img" alt="Celeste"/></div>
+        <div class="card-content">
+          <h3 class="serif" style="font-size:1.4rem;font-weight:400;letter-spacing:1px;">Sanjana</h3>
+          <div class="flex items-center gap-2 mt-1 mb-4">
+            <span style="font-size:9px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase;">Height</span>
+            <span style="font-size:9px;color:var(--gold);letter-spacing:1px;">5'6" / 168 cm</span>
+          </div>
+          <div class="flex gap-2">
+            <a href="https://wa.me/7488836099" target="_blank" class="action-btn btn-whatsapp" onclick="event.stopPropagation()"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp</a>
+            <a href="tel:+917488836099" class="action-btn btn-call" onclick="event.stopPropagation()"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>Call Now</a>
+          </div>
+        </div>
+        <div class="card-view-btn">View Full Profile &rarr;</div>
+      </div>
+
+      <!-- Card 9 -->
+      <div class="profile-card fade-up delay-3" onclick="openProfile(8)">
+        <div class="card-badge">Available</div>
+        <div style="overflow:hidden;"><img src="./Assets/Images/19.jpeg" class="card-img" alt="Diana"/></div>
+        <div class="card-content">
+          <h3 class="serif" style="font-size:1.4rem;font-weight:400;letter-spacing:1px;">Rani</h3>
+          <div class="flex items-center gap-2 mt-1 mb-4">
+            <span style="font-size:9px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase;">Height</span>
+            <span style="font-size:9px;color:var(--gold);letter-spacing:1px;">5'7" / 170 cm</span>
+          </div>
+          <div class="flex gap-2">
+            <a href="https://wa.me/7488836099" target="_blank" class="action-btn btn-whatsapp" onclick="event.stopPropagation()"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp</a>
+            <a href="tel:+917488836099" class="action-btn btn-call" onclick="event.stopPropagation()"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>Call Now</a>
+          </div>
+        </div>
+        <div class="card-view-btn">View Full Profile &rarr;</div>
+      </div>
+
+      <!-- Card 10 -->
+      <div class="profile-card fade-up delay-1" onclick="openProfile(9)">
+        <div class="card-badge">Available</div>
+        <div style="overflow:hidden;"><img src="./Assets/Images/22.jpeg" class="card-img" alt="Seraphina"/></div>
+        <div class="card-content">
+          <h3 class="serif" style="font-size:1.4rem;font-weight:400;letter-spacing:1px;">Diya</h3>
+          <div class="flex items-center gap-2 mt-1 mb-4">
+            <span style="font-size:9px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase;">Height</span>
+            <span style="font-size:9px;color:var(--gold);letter-spacing:1px;">5'5" / 165 cm</span>
+          </div>
+          <div class="flex gap-2">
+            <a href="https://wa.me/7488836099" target="_blank" class="action-btn btn-whatsapp" onclick="event.stopPropagation()"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp</a>
+            <a href="tel:+917488836099" class="action-btn btn-call" onclick="event.stopPropagation()"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>Call Now</a>
+          </div>
+        </div>
+        <div class="card-view-btn">View Full Profile &rarr;</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer-bg">
+    <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,0.3),transparent);"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+        <div class="md:col-span-1">
+          <div class="flex items-center gap-3 mb-4">
+            <div style="width:24px;height:24px;border:1px solid rgba(201,168,76,0.5);transform:rotate(45deg);display:flex;align-items:center;justify-content:center;"><div style="width:8px;height:8px;background:var(--gold);"></div></div>
+            <span class="serif font-semibold gold-text tracking-widest">CITY-INDIA ESCORT</span>
+          </div>
+          <p style="font-size:11px;color:var(--text-muted);line-height:1.9;letter-spacing:0.5px;">Premium companionship services for the modern gentleman. Discreet, professional, unforgettable.</p>
+          <p style="font-size:11px;color:var(--white-hunt);line-height:1.9;letter-spacing:0.5px;">Email: api825323@gmail.com</p>
+        </div>
+        <div>
+          <p class="section-label mb-5">Quick Links</p>
+          <div class="flex flex-col gap-3"><a href="#" class="footer-link">Home</a><a href="#profiles" class="footer-link">Profiles</a><a href="#" class="footer-link">Services</a><a href="#" class="footer-link">Cities</a><a href="#" class="footer-link">About Us</a></div>
+        </div>
+        <div>
+          <p class="section-label mb-5">Cities We Serve</p>
+          <div class="flex flex-col gap-3"><a href="#" class="footer-link">Mumbai</a><a href="#" class="footer-link">Delhi</a><a href="#" class="footer-link">Bangalore</a><a href="#" class="footer-link">Hyderabad</a><a href="#" class="footer-link">Pune</a></div>
+        </div>
+        <div>
+          <p class="section-label mb-5">Contact Us</p>
+          <div class="flex flex-col gap-4">
+            <!-- Email  -->
+            <a href="mailto:api825323@gmail.com" class="action-btn btn-call" style="flex:none;justify-content:flex-start;padding:10px 16px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+            </svg>
+              Email Us
+            </a>
+
+            <!-- <a href="tel:+917488836099" class="action-btn btn-call" style="flex:none;justify-content:flex-start;padding:10px 16px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>+91 74888 36099</a> -->
+          </div>
+        </div>
+      </div>
+      <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,0.2),transparent);margin-bottom:24px;"></div>
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <p style="font-size:10px;letter-spacing:1.5px;color:var(--text-muted);text-transform:uppercase;">© 2026 City Escort India. All rights reserved.</p>
+        <div class="flex items-center gap-6"><a href="#" class="footer-link">Privacy Policy</a><a href="#" class="footer-link">Terms of Service</a><a href="#" class="footer-link">Disclaimer</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== FULL SCREEN OVERLAY ===== -->
+  <div class="profile-overlay" id="profileOverlay">
+    <div class="overlay-header">
+      <div class="flex items-center gap-3">
+        <div style="width:20px;height:20px;border:1px solid rgba(201,168,76,0.4);transform:rotate(45deg);display:flex;align-items:center;justify-content:center;"><div style="width:7px;height:7px;background:var(--gold);"></div></div>
+        <span class="serif gold-text tracking-widest" style="font-size:1rem;" id="overlayHeaderName"></span>
+      </div>
+      <div class="flex items-center gap-3">
+        <span style="font-size:9px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase;" id="overlayCity"></span>
+        <button class="overlay-close" onclick="closeProfile()">&#x2715;</button>
+      </div>
+    </div>
+    <div class="overlay-body">
+      <div>
+        <div class="gallery-main">
+          <img id="galleryMainImg" src="" alt="Profile"/>
+          <button class="gallery-arrow prev" onclick="galleryPrev()">&#8249;</button>
+          <button class="gallery-arrow next" onclick="galleryNext()">&#8250;</button>
+        </div>
+        <div class="gallery-thumbs" id="galleryThumbs"></div>
+      </div>
+      <div class="info-panel">
+        <div class="profile-name-area">
+          <div class="avail-badge" id="availBadge"><div class="avail-dot" id="availDot"></div><span id="availText">Available Now</span></div>
+          <h2 class="serif" style="font-size:2.4rem;font-weight:300;letter-spacing:2px;" id="overlayName"></h2>
+          <p style="font-size:10px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase;margin-top:4px;" id="overlayLocation"></p>
+        </div>
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchTab(this,'info')">Info</button>
+          <button class="tab-btn" onclick="switchTab(this,'rates')">Rates</button>
+          <button class="tab-btn" onclick="switchTab(this,'services')">Services</button>
+          <button class="tab-btn" onclick="switchTab(this,'about')">About</button>
+        </div>
+        <div class="tab-content active" id="tab-info"><div id="infoTable"></div></div>
+        <div class="tab-content" id="tab-rates">
+          <table class="rates-table"><thead><tr><th>Duration</th><th>Incall</th><th>Outcall</th></tr></thead><tbody id="ratesBody"></tbody></table>
+          <p class="rates-note">* Additional charges may apply for travel.<br/>* Overnight is 8 hours long.</p>
+        </div>
+        <div class="tab-content" id="tab-services"><div class="services-grid" id="servicesGrid"></div></div>
+        <div class="tab-content" id="tab-about"><p class="about-text" id="aboutText"></p></div>
+        <a href="tel:+917488836099" class="book-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>Book a Date</a>
+        <div class="overlay-contact">
+          <a href="https://wa.me/7488836099" target="_blank" class="action-btn btn-whatsapp"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp</a>
+          <a href="tel:+917488836099" class="action-btn btn-call"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>Call Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const profiles = [
+      { name:"Kajal", location:"Bandra, Mumbai", city:"Mumbai, India", availability:"Available", images:["./Assets/Images/01.jpeg","./Assets/Images/02.jpeg","./Assets/Images/03.jpeg"], info:{Age:"24",Height:"168 cm / 5'6\"",Language:"Hindi, English","Breast Size":"Medium (32C)","Dress Size":"10 UK",Nationality:"Indian",Payment:"Cash / UPI"}, rates:[{d:"2 Hours",i:"₹ 10,000",o:"₹ 11,000"},{d:"3 Hours",i:"₹ 15,000",o:"₹ 16,000"},{d:"Extra Hour",i:"₹ 5,000",o:"₹ 5,500"},{d:"Overnight",i:"₹ 30,000",o:"₹ 31,000"}], services:["Companionship","Dinner Dates","Travel Escort","GFE","Overnight","Massage","Role Play","Party Escort"], about:"Hi, I am Sophia — a warm, charming companion available for discreet meetings across Mumbai. I love fine dining, stimulating conversation, and making every moment memorable. Open to all services, full discretion guaranteed." },
+      { name:"Sakshi", location:"Juhu, Mumbai", city:"Mumbai, India", availability:"Available", images:["./Assets/Images/04.jpeg","./Assets/Images/07.jpeg","./Assets/Images/08.jpeg"], info:{Age:"22",Height:"170 cm / 5'7\"",Language:"English, French","Breast Size":"Large (34D)","Dress Size":"8 UK",Nationality:"Indian",Payment:"Cash / Bank Transfer"}, rates:[{d:"2 Hours",i:"₹ 12,000",o:"₹ 13,000"},{d:"3 Hours",i:"₹ 18,000",o:"₹ 19,000"},{d:"Extra Hour",i:"₹ 6,000",o:"₹ 6,500"},{d:"Overnight",i:"₹ 35,000",o:"₹ 36,000"}], services:["GFE","Dinner Dates","Overnight","Travel Companion","Party Escort","Massage","Companionship","Role Play"], about:"Isabella here — multilingual, sophisticated and available for premium companionship in Mumbai. Fluent in English and French, I excel at high-society events and intimate settings equally." },
+      { name:"Naira", location:"Connaught Place, Delhi", city:"Delhi, India", availability:"Busy", images:["./Assets/Images/15.jpeg","./Assets/Images/10.jpeg","./Assets/Images/12.jpeg"], info:{Age:"26",Height:"165 cm / 5'5\"",Language:"Hindi, English","Breast Size":"Medium (32B)","Dress Size":"10 UK",Nationality:"Indian",Payment:"Cash"}, rates:[{d:"2 Hours",i:"₹ 9,000",o:"₹ 10,000"},{d:"3 Hours",i:"₹ 13,000",o:"₹ 14,000"},{d:"Extra Hour",i:"₹ 4,500",o:"₹ 5,000"},{d:"Overnight",i:"₹ 28,000",o:"₹ 29,000"}], services:["Companionship","Dinner Dates","GFE","Overnight","Massage","Party Escort","Travel Escort","Role Play"], about:"Hi I am Natasha — based in Delhi, passionate about creating genuine connections. Currently busy but taking bookings for upcoming dates. Contact me in advance to reserve your time." },
+      { name:"Maya", location:"Koramangala, Bangalore", city:"Bangalore, India", availability:"Available", images:["./Assets/Images/09.jpeg","./Assets/Images/11.jpeg","./Assets/Images/17.jpeg"], info:{Age:"23",Height:"173 cm / 5'8\"",Language:"English, Kannada","Breast Size":"Medium (32C)","Dress Size":"8 UK",Nationality:"Indian",Payment:"Cash / UPI"}, rates:[{d:"2 Hours",i:"₹ 11,000",o:"₹ 12,000"},{d:"3 Hours",i:"₹ 16,000",o:"₹ 17,000"},{d:"Extra Hour",i:"₹ 5,500",o:"₹ 6,000"},{d:"Overnight",i:"₹ 32,000",o:"₹ 33,000"}], services:["GFE","Companionship","Dinner Dates","Overnight","Travel Companion","Massage","Party Escort","Role Play"], about:"Aurora — tall, elegant and completely discreet. Based in Bangalore, I cater to gentlemen who appreciate quality time, good conversation and refined company." },
+      { name:"Muskan", location:"Banjara Hills, Hyderabad", city:"Hyderabad, India", availability:"Available", images:["./Assets/Images/18.jpeg","./Assets/Images/19.jpeg","./Assets/Images/20.jpeg"], info:{Age:"25",Height:"163 cm / 5'4\"",Language:"Hindi, Telugu, English","Breast Size":"Large (34C)","Dress Size":"10 UK",Nationality:"Indian",Payment:"Cash / UPI"}, rates:[{d:"2 Hours",i:"₹ 8,000",o:"₹ 9,000"},{d:"3 Hours",i:"₹ 12,000",o:"₹ 13,000"},{d:"Extra Hour",i:"₹ 4,000",o:"₹ 4,500"},{d:"Overnight",i:"₹ 25,000",o:"₹ 26,000"}], services:["Companionship","GFE","Dinner Dates","Massage","Overnight","Party Escort","Travel Escort","Role Play"], about:"Valentina — warm, sensual and always professional. Hyderabad-based with trilingual skills. Every client deserves a perfectly tailored experience. Fully discreet and available on short notice." },
+      { name:"Suhana", location:"Shivaji Park, Mumbai", city:"Mumbai, India", availability:"Available", images:["./Assets/Images/21.jpeg","./Assets/Images/22.jpeg","./Assets/Images/23.jpeg"], info:{Age:"27",Height:"175 cm / 5'9\"",Language:"English, Marathi","Breast Size":"Medium (32B)","Dress Size":"8 UK",Nationality:"Indian",Payment:"Cash"}, rates:[{d:"2 Hours",i:"₹ 13,000",o:"₹ 14,000"},{d:"3 Hours",i:"₹ 19,000",o:"₹ 20,000"},{d:"Extra Hour",i:"₹ 6,500",o:"₹ 7,000"},{d:"Overnight",i:"₹ 38,000",o:"₹ 40,000"}], services:["Premium GFE","Dinner Dates","Travel Escort","Overnight","Corporate Events","Massage","Role Play","Party Escort"], about:"Elena — tall, graceful and unforgettable. I bring sophistication to every encounter. Available for corporate events, private dinners and extended companionship." },
+      { name:"Priya", location:"MG Road, Bangalore", city:"Bangalore, India", availability:"Available", images:["./Assets/Images/24.jpeg","./Assets/Images/25.jpeg","./Assets/Images/26.jpeg"], info:{Age:"22",Height:"160 cm / 5'3\"",Language:"Hindi, Kannada, English","Breast Size":"Medium (32C)","Dress Size":"10 UK",Nationality:"Indian",Payment:"Cash / UPI"}, rates:[{d:"2 Hours",i:"₹ 7,000",o:"₹ 8,000"},{d:"3 Hours",i:"₹ 10,500",o:"₹ 11,500"},{d:"Extra Hour",i:"₹ 3,500",o:"₹ 4,000"},{d:"Overnight",i:"₹ 22,000",o:"₹ 23,000"}], services:["Companionship","GFE","Dinner Dates","Massage","Overnight","Party Escort","Travel Escort","Role Play"], about:"Priya — young, energetic and full of life. Based in Bangalore. I love meeting new people and creating genuine connections. Perfect for the real girlfriend experience." },
+      { name:"Sanjana", location:"Karol Bagh, Delhi", city:"Delhi, India", availability:"Busy", images:["./Assets/Images/07.jpeg","./Assets/Images/09.jpeg",""], info:{Age:"23",Height:"168 cm / 5'6\"",Language:"Hindi, English","Breast Size":"Large (34C)","Dress Size":"10 UK",Nationality:"Indian",Payment:"Cash"}, rates:[{d:"2 Hours",i:"₹ 9,500",o:"₹ 10,500"},{d:"3 Hours",i:"₹ 14,000",o:"₹ 15,000"},{d:"Extra Hour",i:"₹ 4,500",o:"₹ 5,000"},{d:"Overnight",i:"₹ 28,000",o:"₹ 30,000"}], services:["Companionship","GFE","Massage","Dinner Dates","Party Escort","Overnight","Travel Escort","Role Play"], about:"Celeste — Delhi's finest companion. Currently in high demand so please book in advance. I offer a warm, genuine and completely private experience." },
+      { name:"Rani", location:"Indiranagar, Bangalore", city:"Bangalore, India", availability:"Available", images:["./Assets/Images/08.jpeg","./Assets/Images/11.jpeg", ""], info:{Age:"24",Height:"170 cm / 5'7\"",Language:"English, Hindi","Breast Size":"Medium (32C)","Dress Size":"10 UK",Nationality:"Indian",Payment:"Cash / UPI"}, rates:[{d:"2 Hours",i:"₹ 10,000",o:"₹ 11,000"},{d:"3 Hours",i:"₹ 15,000",o:"₹ 16,000"},{d:"Extra Hour",i:"₹ 5,000",o:"₹ 5,500"},{d:"Overnight",i:"₹ 30,000",o:"₹ 31,000"}], services:["GFE","Companionship","Dinner Dates","Overnight","Travel Companion","Massage","Party Escort","Role Play"], about:"Diana — educated, charming and your perfect companion for any occasion. Based in Bangalore's Indiranagar. I enjoy art, music and travel." },
+      { name:"Diya", location:"Marine Drive, Mumbai", city:"Mumbai, India", availability:"Available", images:["./Assets/Images/18.jpeg","./Assets/Images/19.jpeg",""], info:{Age:"25",Height:"165 cm / 5'5\"",Language:"English, Hindi, Gujarati","Breast Size":"Medium (32B)","Dress Size":"8 UK",Nationality:"Indian",Payment:"Cash / UPI / Bank"}, rates:[{d:"2 Hours",i:"₹ 11,000",o:"₹ 12,000"},{d:"3 Hours",i:"₹ 16,000",o:"₹ 17,000"},{d:"Extra Hour",i:"₹ 5,500",o:"₹ 6,000"},{d:"Overnight",i:"₹ 33,000",o:"₹ 34,000"}], services:["GFE","Companionship","Dinner Dates","Travel Escort","Overnight","Corporate Events","Massage","Party Escort"], about:"Seraphina — trilingual and versatile. From business dinners to weekend getaways, I adapt to any setting with grace. Based in Mumbai's Marine Drive." }
+    ];
+
+    let currentIndex = 0;
+    let galleryIdx = 0;
+
+    function openProfile(i) {
+      currentIndex = i;
+      galleryIdx = 0;
+      const p = profiles[i];
+      const isBusy = p.availability === 'Busy';
+
+      document.getElementById('overlayHeaderName').textContent = p.name;
+      document.getElementById('overlayCity').textContent = p.city;
+      document.getElementById('overlayName').textContent = p.name;
+      document.getElementById('overlayLocation').textContent = p.location;
+
+      const badge = document.getElementById('availBadge');
+      const dot = document.getElementById('availDot');
+      document.getElementById('availText').textContent = isBusy ? 'Currently Busy' : 'Available Now';
+      if(isBusy){
+        badge.style.cssText = 'display:inline-flex;align-items:center;gap:6px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#fca5a5;font-size:9px;letter-spacing:2px;padding:4px 12px;text-transform:uppercase;margin-bottom:8px;';
+        dot.style.background = '#ef4444';
+      } else {
+        badge.style.cssText = 'display:inline-flex;align-items:center;gap:6px;background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.3);color:#4ade80;font-size:9px;letter-spacing:2px;padding:4px 12px;text-transform:uppercase;margin-bottom:8px;';
+        dot.style.background = '#4ade80';
+      }
+
+      renderGallery();
+
+      document.getElementById('infoTable').innerHTML = Object.entries(p.info).map(([k,v]) =>
+        `<div class="info-row"><span class="info-label">${k}</span><span class="info-value ${k==='Payment'?'gold':''}">${v}</span></div>`).join('');
+
+      document.getElementById('ratesBody').innerHTML = p.rates.map(r =>
+        `<tr><td>${r.d}</td><td>${r.i}</td><td>${r.o}</td></tr>`).join('');
+
+      document.getElementById('servicesGrid').innerHTML = p.services.map(s =>
+        `<div class="service-item"><div class="service-dot"></div>${s}</div>`).join('');
+
+      document.getElementById('aboutText').textContent = p.about;
+
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      document.getElementById('tab-info').classList.add('active');
+      document.querySelectorAll('.tab-btn')[0].classList.add('active');
+
+      document.getElementById('profileOverlay').classList.add('active');
+      document.body.classList.add('overlay-open');
+    }
+
+    function renderGallery() {
+      const imgs = profiles[currentIndex].images;
+      document.getElementById('galleryMainImg').src = imgs[galleryIdx];
+      document.getElementById('galleryThumbs').innerHTML = imgs.map((img,i) =>
+        `<img src="${img}" class="gallery-thumb ${i===galleryIdx?'active':''}" onclick="setGallery(${i})" />`).join('');
+    }
+
+    function setGallery(i){ galleryIdx = i; renderGallery(); }
+    function galleryNext(){ galleryIdx = (galleryIdx+1) % profiles[currentIndex].images.length; renderGallery(); }
+    function galleryPrev(){ galleryIdx = (galleryIdx-1+profiles[currentIndex].images.length) % profiles[currentIndex].images.length; renderGallery(); }
+
+    function switchTab(btn, name){
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-'+name).classList.add('active');
+    }
+
+    function closeProfile(){
+      document.getElementById('profileOverlay').classList.remove('active');
+      document.body.classList.remove('overlay-open');
+    }
+
+    document.addEventListener('keydown', e => { if(e.key==='Escape') closeProfile(); });
+  </script>
+
+</body>
+</html>
